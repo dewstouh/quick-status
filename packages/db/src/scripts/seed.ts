@@ -19,7 +19,8 @@ async function main() {
                 totalChecks: 2890,
                 lastResponseTime: 120,
                 lastStatus: 'operational',
-                lastCheckedAt: new Date()
+                lastCheckedAt: new Date(),
+                createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) // Created 30 days ago
             }
         }),
         prisma.site.create({
@@ -30,7 +31,8 @@ async function main() {
                 totalChecks: 2890,
                 lastResponseTime: 200,
                 lastStatus: 'operational',
-                lastCheckedAt: new Date()
+                lastCheckedAt: new Date(),
+                createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000) // Created 12 days ago
             }
         }),
         prisma.site.create({
