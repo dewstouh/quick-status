@@ -23,6 +23,7 @@ model Outage {
   startTime DateTime  @default(now())
   endTime   DateTime?
   site      Site      @relation(fields: [siteId], references: [id])
+  type      OutageType
 }
 
 enum OutageType {
