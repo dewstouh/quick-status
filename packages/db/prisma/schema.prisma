@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Site {
-  id               Int      @id @default(autoincrement())
-  name             String   @unique
-  url              String   @unique
-  onlineChecks     Int      @default(0)
-  totalChecks      Int      @default(0)
-  lastResponseTime Int?     @default(0)
-  lastStatus       String?  @default("unknown")
+  id               Int       @id @default(autoincrement())
+  name             String    @unique
+  url              String    @unique
+  onlineChecks     Int       @default(0)
+  totalChecks      Int       @default(0)
+  lastResponseTime Int?      @default(0)
+  lastStatus       String?   @default("unknown")
   lastCheckedAt    DateTime? @default(now())
   outages          Outage[]
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 enum StatusType {
