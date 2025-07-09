@@ -14,7 +14,8 @@
         "studio": "prisma studio",
         "client": "prisma studio",
         "test": "vitest run --coverage",
-        "seed": "tsx ./src/scripts/seed.ts"
+        "seed": "tsx ./src/scripts/seed.ts",
+        "dev": "pnpm seed && prisma studio"
     },
     "dependencies": {
         "@prisma/client": "6.9.0",
