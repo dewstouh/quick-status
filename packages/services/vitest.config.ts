@@ -14,7 +14,17 @@ export default defineConfig({
         '**/*.d.ts',
         '**/*.config.*',
         'dist/'
-      ]
+      ],
+      thresholds: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      },
+      // Fail tests if coverage is below threshold
+      reportOnFailure: true
     }
   }
 })
