@@ -1,7 +1,15 @@
 "use server";
 
-import { SiteService, StatusType } from "@quick-status/services";
+import { OutageType, SiteService, StatusType } from "@quick-status/services";
 import { getUptime } from "../lib/utils";
+
+export type Outage = {
+    id: number;
+    type: OutageType;
+    startTime: Date;
+    endTime: Date | null; // Nullable if the outage is ongoing
+    duration: number | null; // Duration in seconds
+};
 
 export type ServiceStatus = {
     name: string;
@@ -11,6 +19,7 @@ export type ServiceStatus = {
     responseTime: number | -1;
     lastChecked: string | "never";
     createdAt: Date
+    outages: Outage[];
 };
 
 export async function getServices(): Promise<ServiceStatus[]> {
@@ -25,7 +34,14 @@ export async function getServices(): Promise<ServiceStatus[]> {
                 uptime: uptime === "isNaN" ? "0.00" : uptime,
                 responseTime: service.lastResponseTime || -1,
                 lastChecked: service.lastCheckedAt ? service.lastCheckedAt.toLocaleString() : "never",
-                createdAt: service.createdAt
+                createdAt: service.createdAt,
+                outages: service.outages.map(outage => ({
+                    id: outage.id,
+                    type: outage.type,
+                    startTime: outage.startTime,
+                    endTime: outage.endTime,
+                    duration: outage.endTime ? (outage.endTime.getTime() - outage.startTime.getTime()) / 1000 : null
+                }))
             };
         });
     } catch (error) {
