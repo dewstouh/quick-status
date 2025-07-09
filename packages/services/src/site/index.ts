@@ -1,6 +1,6 @@
 import prisma from "@quick-status/db";
 
-export default class SiteService {
+export class SiteService {
     static async create(name: string, url: string) {
         return prisma.site.create({
             data: {

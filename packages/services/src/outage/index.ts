@@ -1,7 +1,7 @@
 import { OutageType } from '@prisma/client';
 import prisma from '@quick-status/db';
 
-export default class OutageService {
+export class OutageService {
     static async create(siteId: number, type: OutageType) {
         return prisma.outage.create({
             data: {

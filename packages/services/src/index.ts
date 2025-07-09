@@ -1,1 +1,2 @@
-export SiteService from './site';
+export { SiteService } from "./site";
+export { OutageService } from "./outage";
