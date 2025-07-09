@@ -5,11 +5,19 @@
     "exports": {
         ".": "./src/index.ts"
     },
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage"
+    },
     "dependencies": {
         "@quick-status/db": "workspace:^"
     },
     "devDependencies": {
         "@prisma/client": "^6.9.0",
-        "@quick-status/typescript-config": "workspace:^"
+        "@quick-status/typescript-config": "workspace:^",
+        "vitest": "^2.1.8",
+        "@vitest/coverage-v8": "^2.1.8",
+        "prisma": "^6.9.0"
     }
 }
