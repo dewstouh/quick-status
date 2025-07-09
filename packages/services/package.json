@@ -3,12 +3,13 @@
     "version": "0.0.0",
     "private": true,
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "test": "vitest run",
         "test:watch": "vitest",
-        "test:coverage": "vitest run --coverage"
+        "test:coverage": "vitest run --coverage",
+        "build": "tsc -b tsconfig.build.json"
     },
     "dependencies": {
         "@quick-status/db": "workspace:^"

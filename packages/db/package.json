@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "exports": {
-        ".": "./src/index.ts"
+        ".": "./dist/index.js"
     },
     "scripts": {
         "generate": "prisma generate",
@@ -17,7 +17,8 @@
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
         "seed": "tsx ./src/scripts/seed.ts",
-        "dev": "pnpm seed && prisma studio"
+        "dev": "pnpm seed && prisma studio",
+        "build": "tsc -b tsconfig.build.json"
     },
     "dependencies": {
         "@prisma/client": "6.9.0",
