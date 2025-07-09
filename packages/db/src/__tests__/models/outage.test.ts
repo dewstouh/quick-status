@@ -52,8 +52,8 @@ describe('Outage Model', () => {
             })
 
             expect(outages).toHaveLength(2)
-            expect(outages[0].type).toBe('down')
-            expect(outages[1].type).toBe('degraded')
+            expect(outages[0]?.type).toBe('down')
+            expect(outages[1]?.type).toBe('degraded')
         })
 
         it('should update outage end time', async () => {

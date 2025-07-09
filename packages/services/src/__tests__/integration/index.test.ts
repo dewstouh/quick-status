@@ -130,8 +130,8 @@ describe('Services Integration', () => {
       
       expect(siteHistory).toEqual(mockHistory);
       expect(outageHistory).toEqual(mockHistory);
-      expect(siteHistory[0].id).toBe(outage.id);
-      expect(outageHistory[0].id).toBe(outage.id);
+      expect(siteHistory[0]?.id).toBe(outage.id);
+      expect(outageHistory[0]?.id).toBe(outage.id);
     });
   });
 });
