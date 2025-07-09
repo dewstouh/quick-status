@@ -11,8 +11,11 @@ export function ServiceCard({
     status,
     uptime,
     responseTime,
-    lastChecked
+    lastChecked,
+    createdAt,
+    outages = [],
 }: ServiceCardProps) {
+
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
@@ -31,7 +34,10 @@ export function ServiceCard({
                 </div>
             </div>
 
-            <UptimeChart status={status} />
+            <UptimeChart
+                createdAt={createdAt}
+                outages={outages}
+            />
 
             <div className="flex justify-between text-sm text-gray-600 mt-4">
                 <div>
