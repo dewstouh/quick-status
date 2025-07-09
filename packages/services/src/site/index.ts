@@ -1,4 +1,4 @@
-import { OutageType } from "@prisma/client";
+import { OutageType, Prisma } from "@prisma/client";
 import prisma from "@quick-status/db";
 
 export class SiteService {
@@ -74,7 +74,7 @@ export class SiteService {
         });
     }
 
-    static async update(id: number, data: Partial<{ name: string, url: string }>) {
+    static async update(id: number, data: Prisma.SiteUpdateInput) {
         return prisma.site.update({
             where: { id },
             data

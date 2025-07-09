@@ -2,5 +2,13 @@
     "name": "@quick-status/checker",
     "version": "0.0.0",
     "private": true,
-    "license": "MIT"
+    "license": "MIT",
+    "dependencies": {
+        "cron": "^4.3.1",
+        "@quick-status/services": "workspace:^"
+    },
+    "devDependencies": {
+        "@quick-status/typescript-config": "workspace:^",
+        "@prisma/client": "6.9.0"
+    }
 }
