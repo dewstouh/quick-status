@@ -1,3 +1,8 @@
+<p align="center">
+  <a href="https://demo-quickstatus.justdiego.com/"><img src="https://img.shields.io/badge/view-demo-brightgreen" alt="view demo"></a>
+  <a href="https://github.com/dewstouh/quick-status/actions/workflows/ci.yml"><img src="https://github.com/dewstouh/quick-status/actions/workflows/ci.yml/badge.svg?branch=main" alt="build status"></a>
+</p>
+
 <h1 align="center">
 Quick Status
 </h1>
