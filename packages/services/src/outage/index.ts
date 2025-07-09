@@ -24,6 +24,13 @@ export class OutageService {
         })
     }
 
+    static async getSiteOutages(siteId: number) {
+        return prisma.outage.findMany({
+            where: { siteId },
+            orderBy: { startTime: 'desc' }
+        });
+    }
+
     static async getActiveBySite(siteId: number) {
         return prisma.outage.findFirst({
             where: {

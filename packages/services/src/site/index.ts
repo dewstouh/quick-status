@@ -1,3 +1,4 @@
+import { OutageType } from "@prisma/client";
 import prisma from "@quick-status/db";
 
 export class SiteService {
@@ -42,6 +43,34 @@ export class SiteService {
             include: {
                 outages: true
             }
+        });
+    }
+
+    static async addOutage(siteId: number, type: OutageType) {
+        return prisma.outage.create({
+            data: {
+                siteId,
+                type
+            }
+        })
+    }
+
+    static async getActiveOutage(siteId: number) {
+        return prisma.outage.findFirst({
+            where: {
+                siteId,
+                endTime: null
+            }
+        });
+    }
+
+    static async getOutageHistory(siteId: number, since: Date) {
+        return prisma.outage.findMany({
+            where: {
+                siteId,
+                startTime: { gte: since }
+            },
+            orderBy: { startTime: 'desc' }
         });
     }
 
