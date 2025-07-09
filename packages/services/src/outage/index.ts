@@ -36,7 +36,8 @@ export class OutageService {
             where: {
                 siteId,
                 endTime: null
-            }
+            },
+            orderBy: { startTime: 'desc' }
         });
     }
 

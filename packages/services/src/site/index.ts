@@ -60,7 +60,8 @@ export class SiteService {
             where: {
                 siteId,
                 endTime: null
-            }
+            },
+            orderBy: { startTime: 'desc' }
         });
     }
 
