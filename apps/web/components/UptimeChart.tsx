@@ -1,5 +1,5 @@
 interface UptimeChartProps {
-    status: 'operational' | 'down' | 'degraded'
+    status: 'operational' | 'down' | 'degraded' | 'unknown';
 }
 
 export function UptimeChart({ status }: UptimeChartProps) {
@@ -9,6 +9,7 @@ export function UptimeChart({ status }: UptimeChartProps) {
         if (status === 'down' && isRecent) return 'down'
         if (status === 'degraded' && isRecent) return 'degraded'
         if (status === 'degraded' && Math.random() < 0.1) return 'degraded'
+        if (status === 'unknown') return 'unknown'
         return 'operational'
     })
 
