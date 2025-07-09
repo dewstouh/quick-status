@@ -39,11 +39,29 @@ AWS=https://aws.amazon.com
 ```
 
 # Installation
-## Using Git
+
+## Quick Start with Docker (Recommended)
+
+The fastest way to get Quick Status running:
+
+```bash
+# Option 1: Build and run directly from GitHub
+docker build -t quick-status https://github.com/dewstouh/quick-status.git#main:docker/images/quick-status
+docker run -p 3000:3000 quick-status
+
+# Option 2: Clone and use docker-compose
+git clone https://github.com/dewstouh/quick-status.git
+cd quick-status/docker/images/quick-status
+docker compose up
+```
+
+Visit http://localhost:3000 to see your status page!
+
+## Using Git (Development)
 
 1. Clone the repository:
 ```bash
-git clone github.com/dewstouh/quick-status.git
+git clone https://github.com/dewstouh/quick-status.git
 ```
 
 2. Install the dependencies:

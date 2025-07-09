@@ -1,0 +1,15 @@
+services:
+  quick-status:
+    build:
+      context: https://github.com/dewstouh/quick-status.git#main
+      dockerfile: docker/images/quick-status/Dockerfile
+    image: quick-status
+    container_name: quick-status
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    volumes:
+      - ./data:/app/packages/db/prisma
