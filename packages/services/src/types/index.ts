@@ -1,1 +1,2 @@
-export { OutageType } from '@prisma/client';
+import { OutageType, StatusType } from '@prisma/client';
+

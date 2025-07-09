@@ -24,6 +24,12 @@ model Site {
   updatedAt        DateTime @updatedAt
 }
 
+enum StatusType {
+  operational
+  degraded
+  down
+}
+
 model Outage {
   id        Int        @id @default(autoincrement())
   siteId    Int
