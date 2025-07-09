@@ -17,7 +17,9 @@ export const job = new CronJob('*/30 * * * * *', async () => {
                 totalChecks: site.totalChecks + 1
             }
 
-            if (response.status === StatusType.down || response.status === StatusType.degraded) await OutageService.create(site.id, OutageType[response.status]);
+            const isOnCurrentOutage = await OutageService.getActiveBySite(site.id);
+
+            if ((response.status === StatusType.down || response.status === StatusType.degraded) && !isOnCurrentOutage) await OutageService.create(site.id, OutageType[response.status]);
 
             if (response.status === StatusType.operational) {
                 const activeOutage = await OutageService.getActiveBySite(site.id);
