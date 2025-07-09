@@ -1,5 +1,5 @@
 {
-    "name": "@repo/status-checker",
+    "name": "@quick-status/status-checker",
     "version": "0.0.0",
     "private": true,
     "license": "MIT"
