@@ -2,9 +2,9 @@ import { getServices } from "../actions/getServices";
 import { StatusBanner } from "../components/StatusBanner";
 import { SystemStatus } from "../components/SystemStatus";
 
-export default function HomePage() {
+export default async function HomePage() {
 
-  const services = getServices();
+  const services = await getServices();
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -15,7 +15,7 @@ export default function HomePage() {
         </header>
 
         <StatusBanner />
-        <SystemStatus servicesPromise={services}/>
+        <SystemStatus services={services}/>
       </div>
     </div>
   )

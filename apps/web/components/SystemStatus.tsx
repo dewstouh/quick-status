@@ -2,12 +2,10 @@ import { ServiceStatus } from '../actions/getServices'
 import { ServiceCard } from './ServiceCard'
 
 interface PageProps {
-    servicesPromise: Promise<ServiceStatus[]>
+    services: ServiceStatus[]
 }
 
-export async function SystemStatus({ servicesPromise }: PageProps) {
-
-    const services = await servicesPromise;
+export async function SystemStatus({ services }: PageProps) {
 
     return (
         <section>
