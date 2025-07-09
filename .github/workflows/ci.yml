@@ -35,8 +35,18 @@ jobs:
       - name: Generate Prisma client
         run: pnpm --filter @quick-status/db generate
 
+      - name: Setup test database
+        run: |
+          cd packages/db
+          rm -f *.db
+          DATABASE_URL="file:./test.db" npx prisma db push --force-reset
+        env:
+          DATABASE_URL: file:./test.db
+
       - name: Run lint
         run: pnpm turbo run lint
 
       - name: Run tests
         run: pnpm turbo run test
+        env:
+          DATABASE_URL: file:./test.db

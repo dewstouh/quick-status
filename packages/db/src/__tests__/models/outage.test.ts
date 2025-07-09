@@ -37,6 +37,9 @@ describe('Outage Model', () => {
                 }
             })
 
+            // Verify site was created
+            expect(site.id).toBeDefined()
+
             await prisma.outage.createMany({
                 data: [
                     { siteId: site.id, type: 'down' },
@@ -121,10 +124,19 @@ describe('Outage Model', () => {
                 }
             })
 
-            await prisma.site.delete({
+            // Verify the outage exists before deletion
+            const outageBeforeDelete = await prisma.outage.findUnique({
+                where: { id: outage.id }
+            })
+            expect(outageBeforeDelete).not.toBeNull()
+
+            // Delete the site (should cascade delete the outage)
+            const deletedSite = await prisma.site.delete({
                 where: { id: site.id }
             })
+            expect(deletedSite).toBeDefined()
 
+            // Verify the outage was cascade deleted
             const deletedOutage = await prisma.outage.findUnique({
                 where: { id: outage.id }
             })
@@ -141,6 +153,9 @@ describe('Outage Model', () => {
                     url: 'https://enum.com'
                 }
             })
+
+            // Verify site was created
+            expect(site.id).toBeDefined()
 
             const downOutage = await prisma.outage.create({
                 data: {
