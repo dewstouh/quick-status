@@ -1,7 +1,7 @@
 import prisma from "@quick-status/db";
 
 export default class SiteService {
-    static async create(name:string, url:string){
+    static async create(name: string, url: string) {
         return prisma.site.create({
             data: {
                 name,
@@ -10,7 +10,7 @@ export default class SiteService {
         })
     }
 
-    static async getById(id:number) {
+    static async getById(id: number) {
         return prisma.site.findUnique({
             where: { id },
             include: {
@@ -19,7 +19,7 @@ export default class SiteService {
         })
     }
 
-    static async getByName(name:string) {
+    static async getByName(name: string) {
         return prisma.site.findUnique({
             where: { name },
             include: {
@@ -28,7 +28,7 @@ export default class SiteService {
         })
     }
 
-    static async getByURL(url:string) {
+    static async getByURL(url: string) {
         return prisma.site.findUnique({
             where: { url },
             include: {
@@ -45,14 +45,14 @@ export default class SiteService {
         });
     }
 
-    static async update(id:number, data:Partial<{name:string, url:string}>) {
+    static async update(id: number, data: Partial<{ name: string, url: string }>) {
         return prisma.site.update({
             where: { id },
             data
         })
     }
 
-    static async delete(id:number) {
+    static async delete(id: number) {
         return prisma.site.delete({
             where: { id }
         })

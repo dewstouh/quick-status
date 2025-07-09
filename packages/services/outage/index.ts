@@ -1,5 +1,5 @@
-import { OutageType, Prisma } from '@prisma/client';
-import prisma from "@quick-status/db";
+import { OutageType } from '@prisma/client';
+import prisma from '@quick-status/db';
 
 export default class OutageService {
     static async create(siteId: number, type: OutageType) {

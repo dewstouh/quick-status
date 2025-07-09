@@ -1,17 +1,15 @@
 {
-    "name": "@quick-status/core",
+    "name": "@quick-status/servics",
     "version": "0.0.0",
     "private": true,
-    "composite": true,
-    "scripts": {
-        "test": "vitest run --coverage"
+    "exports": {
+        ".": "./src/index.ts"
     },
     "dependencies": {
         "@quick-status/db": "workspace:^"
     },
     "devDependencies": {
         "@prisma/client": "^6.9.0",
-        "dotenv": "^16.5.0",
         "@quick-status/typescript-config": "workspace:^"
     }
 }

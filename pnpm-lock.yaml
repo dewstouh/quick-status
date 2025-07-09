@@ -58,21 +58,7 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
-  packages/core:
-    dependencies:
-      '@quick-status/db':
-        specifier: workspace:^
-        version: link:../db
-    devDependencies:
-      '@prisma/client':
-        specifier: ^6.9.0
-        version: 6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
-      '@quick-status/typescript-config':
-        specifier: workspace:^
-        version: link:../typescript-config
-      dotenv:
-        specifier: ^16.5.0
-        version: 16.6.1
+  packages/checker: {}
 
   packages/db:
     dependencies:
@@ -132,7 +118,18 @@ importers:
         specifier: ^8.35.0
         version: 8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.2)
 
-  packages/status-checker: {}
+  packages/services:
+    dependencies:
+      '@quick-status/db':
+        specifier: workspace:^
+        version: link:../db
+    devDependencies:
+      '@prisma/client':
+        specifier: ^6.9.0
+        version: 6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
+      '@quick-status/typescript-config':
+        specifier: workspace:^
+        version: link:../typescript-config
 
   packages/typescript-config: {}
 
@@ -858,10 +855,6 @@ packages:
 
   dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-
-  dotenv@16.6.1:
-    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -2346,8 +2339,6 @@ snapshots:
       esutils: 2.0.3
 
   dotenv@16.0.3: {}
-
-  dotenv@16.6.1: {}
 
   dunder-proto@1.0.1:
     dependencies:
