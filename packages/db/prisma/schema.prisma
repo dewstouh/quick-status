@@ -16,9 +16,9 @@ model Site {
   url              String   @unique
   onlineChecks     Int      @default(0)
   totalChecks      Int      @default(0)
-  lastResponseTime Int     @default(0)
-  lastStatus       String  @default("operational")
-  lastCheckedAt    DateTime @default(now())
+  lastResponseTime Int?     @default(0)
+  lastStatus       String?  @default("operational")
+  lastCheckedAt    DateTime? @default(now())
   outages          Outage[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
