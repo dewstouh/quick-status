@@ -14,6 +14,8 @@
         "studio": "prisma studio",
         "client": "prisma studio",
         "test": "vitest run --coverage",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
         "seed": "tsx ./src/scripts/seed.ts",
         "dev": "pnpm seed && prisma studio"
     },
@@ -25,6 +27,7 @@
         "@faker-js/faker": "^9.8.0",
         "@types/node": "^20.19.0",
         "prisma": "^6.9.0",
-        "tsx": "^4.20.3"
+        "tsx": "^4.20.3",
+        "vitest": "^2.1.8"
     }
 }
