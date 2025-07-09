@@ -18,6 +18,7 @@ model Site {
   totalChecks      Int      @default(0)
   lastResponseTime Int?     @default(0)
   lastStatus       String?  @default("operational")
+  lastCheckedAt    DateTime @default(now())
   outages          Outage[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
