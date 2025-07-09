@@ -1,7 +1,0 @@
-# Format: ServiceName=ServiceURL
-
-GitHub=https://github.com
-OpenAI=https://openai.com
-Vercel=https://vercel.com
-Netlify=https://netlify.com
-AWS=https://aws.amazon.com
