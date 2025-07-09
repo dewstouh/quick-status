@@ -35,6 +35,9 @@ jobs:
       - name: Generate Prisma client
         run: pnpm --filter @quick-status/db generate
 
+      - name: Build packages
+        run: pnpm turbo run build
+
       - name: Setup test database
         run: |
           cd packages/db
