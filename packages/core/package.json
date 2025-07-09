@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "@prisma/client": "^6.9.0",
-        "dotenv": "^16.5.0"
+        "dotenv": "^16.5.0",
+        "@quick-status/typescript-config": "workspace:^"
     }
 }
