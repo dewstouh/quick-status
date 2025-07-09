@@ -1,10 +1,12 @@
 import { getServices } from "../actions/getServices";
 import { StatusBanner } from "../components/StatusBanner";
 import { SystemStatus } from "../components/SystemStatus";
+import { getBannerState } from "../lib/utils";
 
 export default async function HomePage() {
 
   const services = await getServices();
+  const banner = getBannerState(services);
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -14,7 +16,7 @@ export default async function HomePage() {
           <p className="text-gray-600 mt-2">Updated every 30 seconds</p>
         </header>
 
-        <StatusBanner />
+        <StatusBanner {...banner}/>
         <SystemStatus services={services}/>
       </div>
     </div>

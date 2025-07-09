@@ -1,7 +1,6 @@
-interface StatusBannerProps {
-    type?: 'issue' | 'maintenance' | 'operational'
-    title?: string
-    message?: string
+import { BannerState } from "../lib/utils"
+
+interface StatusBannerProps extends BannerState {
 }
 
 export function StatusBanner({
