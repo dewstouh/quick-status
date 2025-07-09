@@ -10,3 +10,23 @@ datasource db {
   provider = "sqlite"
   url      = "file:./quick-status.db"
 }
+
+model Site {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  url     String
+  Outages Outage[]
+}
+
+model Outage {
+  id        Int       @id @default(autoincrement())
+  siteId    Int
+  startTime DateTime  @default(now())
+  endTime   DateTime?
+  site      Site      @relation(fields: [siteId], references: [id])
+}
+
+enum OutageType {
+  down
+  degraded
+}
