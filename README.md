@@ -7,8 +7,7 @@ You can view a live demo of Quick Status here: https://demo-quickstatus.justdieg
 
 > A simple and lightweight status page for your services. Set up your status page in seconds and share it with your users. Easy configuration and deployment.
 
-![](https://i.imgur.com/JGMiCKK.png
-)
+![](https://i.imgur.com/e3UnZu9.gif)
 
 # Features
 - **Easy to Use**: Quick setup with minimal configuration.
