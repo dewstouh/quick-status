@@ -32,10 +32,14 @@ describe('Site Model', () => {
                 }
             })
 
+            // Verify the site was created successfully
+            expect(createdSite.id).toBeDefined()
+
             const foundSite = await prisma.site.findUnique({
                 where: { id: createdSite.id }
             })
 
+            expect(foundSite).not.toBeNull()
             expect(foundSite).toMatchObject({
                 id: createdSite.id,
                 name: 'Find Test Site',
@@ -104,7 +108,7 @@ describe('Site Model', () => {
                         url: 'https://unique2.com'
                     }
                 })
-            ).rejects.toThrow()
+            ).rejects.toThrow(/unique constraint/i)
         })
 
         it('should enforce unique url constraint', async () => {
@@ -135,18 +139,25 @@ describe('Site Model', () => {
                 }
             })
 
-            await prisma.outage.create({
+            // Ensure site exists before creating outage
+            expect(site.id).toBeDefined()
+
+            const outage = await prisma.outage.create({
                 data: {
                     siteId: site.id,
                     type: 'down'
                 }
             })
 
+            // Verify outage was created
+            expect(outage.id).toBeDefined()
+
             const siteWithOutages = await prisma.site.findUnique({
                 where: { id: site.id },
                 include: { outages: true }
             })
 
+            expect(siteWithOutages).not.toBeNull()
             expect(siteWithOutages?.outages).toHaveLength(1)
             expect(siteWithOutages?.outages[0]).toMatchObject({
                 siteId: site.id,

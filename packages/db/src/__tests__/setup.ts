@@ -18,10 +18,17 @@ beforeAll(async () => {
 })
 
 beforeEach(async () => {
-    // Clean up data before each test (outages first due to foreign keys)
+    // Clean up data before each test with proper foreign key handling
     try {
+        // Disable foreign key constraints temporarily for cleanup
+        await prisma.$executeRaw`PRAGMA foreign_keys = OFF;`
+        
         const deletedOutages = await prisma.outage.deleteMany()
         const deletedSites = await prisma.site.deleteMany()
+        
+        // Re-enable foreign key constraints after cleanup
+        await prisma.$executeRaw`PRAGMA foreign_keys = ON;`
+        
         console.log(`Cleanup: Deleted ${deletedOutages.count} outages, ${deletedSites.count} sites`)
     } catch (error) {
         console.error('Database cleanup failed:', error)

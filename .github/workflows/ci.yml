@@ -36,21 +36,23 @@ jobs:
         run: pnpm --filter @quick-status/db generate
 
       - name: Build packages
-        run: pnpm turbo run build
+        run: pnpm run build
 
       - name: Setup test database
         run: |
           cd packages/db
-          rm -f *.db
+          rm -f *.db test.db
           DATABASE_URL="file:./test.db" npx prisma db push --force-reset
+          # Ensure foreign keys are enabled in CI
+          echo "PRAGMA foreign_keys = ON;" | sqlite3 test.db
         env:
           DATABASE_URL: file:./test.db
 
       - name: Run lint
-        run: pnpm turbo run lint
+        run: pnpm lint
 
       - name: Run tests
-        run: pnpm turbo run test
+        run: pnpm test
         env:
           DATABASE_URL: file:./test.db
           

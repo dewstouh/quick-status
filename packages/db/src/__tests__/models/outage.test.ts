@@ -37,23 +37,29 @@ describe('Outage Model', () => {
                 }
             })
 
-            // Verify site was created
+            // Verify site was created and persisted
             expect(site.id).toBeDefined()
-
-            await prisma.outage.createMany({
-                data: [
-                    { siteId: site.id, type: 'down' },
-                    { siteId: site.id, type: 'degraded' }
-                ]
+            
+            // Create outages with individual operations for better error handling
+            const outage1 = await prisma.outage.create({
+                data: { siteId: site.id, type: 'down' }
             })
+
+            const outage2 = await prisma.outage.create({
+                data: { siteId: site.id, type: 'degraded' }
+            })
+
+            // Verify outages were created
+            expect(outage1.id).toBeDefined()
+            expect(outage2.id).toBeDefined()
 
             const outages = await prisma.outage.findMany({
                 where: { siteId: site.id }
             })
 
             expect(outages).toHaveLength(2)
-            expect(outages[0]?.type).toBe('down')
-            expect(outages[1]?.type).toBe('degraded')
+            expect(outages.some(o => o.type === 'down')).toBe(true)
+            expect(outages.some(o => o.type === 'degraded')).toBe(true)
         })
 
         it('should update outage end time', async () => {
@@ -97,11 +103,22 @@ describe('Outage Model', () => {
                 }
             })
 
+            // Ensure the relationship is properly established
             const outageWithSite = await prisma.outage.findUnique({
                 where: { id: outage.id },
-                include: { site: true }
+                include: { 
+                    site: {
+                        select: {
+                            id: true,
+                            name: true,
+                            url: true
+                        }
+                    }
+                }
             })
 
+            expect(outageWithSite).toBeDefined()
+            expect(outageWithSite?.site).toBeDefined()
             expect(outageWithSite?.site).toMatchObject({
                 id: site.id,
                 name: 'Outage Relation Site',
@@ -164,6 +181,10 @@ describe('Outage Model', () => {
                 }
             })
 
+            // Verify first outage before creating second
+            expect(downOutage.id).toBeDefined()
+            expect(downOutage.type).toBe('down')
+
             const degradedOutage = await prisma.outage.create({
                 data: {
                     siteId: site.id,
@@ -171,7 +192,7 @@ describe('Outage Model', () => {
                 }
             })
 
-            expect(downOutage.type).toBe('down')
+            expect(degradedOutage.id).toBeDefined()
             expect(degradedOutage.type).toBe('degraded')
         })
 
