@@ -12,24 +12,37 @@ export default class SiteService {
 
     static async getById(id:number) {
         return prisma.site.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+                outages: true
+            }
         })
     }
 
     static async getByName(name:string) {
         return prisma.site.findUnique({
-            where: { name }
+            where: { name },
+            include: {
+                outages: true
+            }
         })
     }
 
     static async getByURL(url:string) {
         return prisma.site.findUnique({
-            where: { url }
+            where: { url },
+            include: {
+                outages: true
+            }
         })
     }
 
     static async getAll() {
-        return prisma.site.findMany();
+        return prisma.site.findMany({
+            include: {
+                outages: true
+            }
+        });
     }
 
     static async update(id:number, data:Partial<{name:string, url:string}>) {
