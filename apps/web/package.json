@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@quick-status/ui": "workspace:*",
+    "@quick-status/services": "workspace:*",
     "@tailwindcss/postcss": "^4.1.11",
     "next": "^15.3.0",
     "postcss": "^8.5.6",
