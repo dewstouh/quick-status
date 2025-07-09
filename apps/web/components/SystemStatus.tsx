@@ -8,7 +8,6 @@ interface PageProps {
 export async function SystemStatus({ servicesPromise }: PageProps) {
 
     const services = await servicesPromise;
-    console.log(services)
 
     return (
         <section>
