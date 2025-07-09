@@ -10,6 +10,7 @@ export type ServiceStatus = {
     uptime: string;
     responseTime: number | -1;
     lastChecked: string | "never";
+    createdAt: Date
 };
 
 export async function getServices(): Promise<ServiceStatus[]> {
@@ -21,9 +22,10 @@ export async function getServices(): Promise<ServiceStatus[]> {
                 name: service.name,
                 url: service.url,
                 status: service.lastStatus as StatusType || "unknown",
-                uptime: parseInt(uptime) ? "0.00" : uptime,
+                uptime: uptime === "isNaN" ? "0.00" : uptime,
                 responseTime: service.lastResponseTime || -1,
-                lastChecked: service.lastCheckedAt ? service.lastCheckedAt.toLocaleString() : "never"
+                lastChecked: service.lastCheckedAt ? service.lastCheckedAt.toLocaleString() : "never",
+                createdAt: service.createdAt
             };
         });
     } catch (error) {
