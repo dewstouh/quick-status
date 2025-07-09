@@ -1,0 +1,22 @@
+{
+    "name": "@quick-status/db",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "generate": "prisma generate",
+        "migrate:dev": "prisma migrate dev",
+        "migrate:reset": "prisma migrate reset",
+        "migrate:deploy": "prisma migrate deploy",
+        "studio": "prisma studio",
+        "test": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@prisma/client": "6.9.0",
+        "@prisma/extension-accelerate": "^2.0.1"
+    },
+    "devDependencies": {
+        "@faker-js/faker": "^9.8.0",
+        "@types/node": "^20.19.0",
+        "prisma": "^6.9.0"
+    }
+}
