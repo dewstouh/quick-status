@@ -1,7 +1,6 @@
 import { CronJob } from 'cron';
-import { OutageService, SiteService, OutageType } from '@quick-status/services';
+import { OutageService, SiteService, OutageType, StatusType } from '@quick-status/services';
 import { check } from './lib/check';
-import { Status } from './types';
 
 // Cron job every 30 seconds
 export const job = new CronJob('*/30 * * * * *', async () => {
@@ -11,16 +10,16 @@ export const job = new CronJob('*/30 * * * * *', async () => {
         try {
             const response = await check(site.url);
             let updateData = {
-                lastStatus: Status[response.status],
+                lastStatus: StatusType[response.status],
                 lastResponseTime: response.responseTime,
                 lastCheckedAt: new Date(),
                 onlineChecks: site.onlineChecks,
                 totalChecks: site.totalChecks + 1
             }
 
-            if(response.status === Status.down || response.status === Status.degraded) await OutageService.create(site.id, OutageType[response.status]);
+            if (response.status === StatusType.down || response.status === StatusType.degraded) await OutageService.create(site.id, OutageType[response.status]);
 
-            if(response.status === Status.operational) {
+            if (response.status === StatusType.operational) {
                 const activeOutage = await OutageService.getActiveBySite(site.id);
                 if (activeOutage) {
                     // If there is an active outage, end it
