@@ -1,0 +1,16 @@
+{
+    "name": "@quick-status/core",
+    "version": "0.0.0",
+    "private": true,
+    "composite": true,
+    "scripts": {
+        "test": "vitest run --coverage"
+    },
+    "dependencies": {
+        "@quick-status/db": "workspace:^"
+    },
+    "devDependencies": {
+        "@prisma/client": "^6.9.0",
+        "dotenv": "^16.5.0"
+    }
+}
