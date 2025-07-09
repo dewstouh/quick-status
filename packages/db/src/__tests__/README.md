@@ -2,6 +2,8 @@
 
 This package contains comprehensive tests for the Prisma database layer.
 
+![](https://i.imgur.com/R6efBQe.png)
+![](https://i.imgur.com/KeRDKVS.png)
 ## Test Structure
 
 ```
