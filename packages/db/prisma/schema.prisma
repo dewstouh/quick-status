@@ -14,7 +14,7 @@ model Site {
   id      Int       @id @default(autoincrement())
   name    String    @unique
   url     String    @unique
-  Outage Outage[]
+  outages Outage[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
