@@ -6,7 +6,7 @@
   ],
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "db:generate"],
+      "dependsOn": ["^build", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [
         "dist/**",
@@ -17,52 +17,11 @@
         "DATABASE_URL"
       ]
     },
-    "db:generate": {
-      "cache": false,
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
-    "db:migrate": {
-      "cache": false,
-      "persistent": true, // This is necessary to interact with the CLI and assign names to your database migrations.
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
-    "db:migrate:test": {
-      "cache": false,
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
-    "db:deploy": {
-      "cache": false,
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
-    "db:push": {
-      "cache": false,
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
-    "seed": {
-      "dependsOn": ["db:generate", "db:push"],
-      "cache": false,
-      "env": [
-        "DATABASE_URL"
-      ]
-    },
     "start": {
       "dependsOn": ["^start"],
       "persistent": true,
       "cache": false,
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "env": [
-        "DATABASE_URL"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", ".env*"]
     },
     "test": {
       "dependsOn": [
@@ -72,9 +31,6 @@
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**", "test-results/**"],
-      "env": [
-        "DATABASE_URL"
-      ],
       "cache": false
     },
     "lint": {
@@ -84,12 +40,35 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
-      "dependsOn": ["^db:generate", "^db:push"],
+      "dependsOn": ["^db:generate", "db:push", "db:studio"],
       "cache": false,
-      "persistent": true,
-      "env": [
-        "DATABASE_URL"
-      ]
+      "persistent": true
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true
+    },
+    "db:migrate:test": {
+      "cache": false
+    },
+    "db:deploy": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false
+    },
+    "db:seed": {
+      "dependsOn": [
+        "db:generate",
+        "db:push"
+      ],
+      "cache": false
     }
   }
 }
