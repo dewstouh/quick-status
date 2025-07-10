@@ -13,18 +13,16 @@
         "db:migrate:test": "npx prisma migrate reset --force --skip-seed",
         "db:migrate:deploy": "npx prisma migrate deploy",
         "db:push": "npx prisma db push",
-        "studio": "prisma studio",
+        "db:seed": "tsx ./src/scripts/seed.ts",
+        "db:studio": "prisma studio",
         "client": "prisma studio",
         "test": "vitest run --coverage",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
-        "seed": "tsx ./src/scripts/seed.ts",
-        "dev": "pnpm seed && prisma studio",
         "build": "tsc -b tsconfig.build.json"
     },
     "dependencies": {
-        "@prisma/client": "6.11.1",
-        "@prisma/extension-accelerate": "^2.0.1"
+        "@prisma/client": "6.11.1"
     },
     "devDependencies": {
         "@faker-js/faker": "^9.8.0",
