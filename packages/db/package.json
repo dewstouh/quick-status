@@ -9,6 +9,7 @@
         "db:generate": "npx prisma generate",
         "db:migrate": "npx prisma migrate dev",
         "db:migrate:reset": "npx prisma migrate reset",
+        "db:migrate:test": "npx prisma migrate reset --force --skip-seed",
         "db:migrate:deploy": "npx prisma migrate deploy",
         "db:push": "npx prisma db push",
         "studio": "prisma studio",
