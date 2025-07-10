@@ -21,14 +21,15 @@
         "build": "tsc -b tsconfig.build.json"
     },
     "dependencies": {
+        "@prisma/client": "6.11.1",
         "@prisma/extension-accelerate": "^2.0.1"
     },
     "devDependencies": {
         "@faker-js/faker": "^9.8.0",
         "@types/node": "^20.19.0",
-        "prisma": "^6.9.0",
+        "@vitest/coverage-v8": "^2.1.8",
+        "prisma": "^6.11.1",
         "tsx": "^4.20.3",
-        "vitest": "^2.1.8",
-        "@vitest/coverage-v8": "^2.1.8"
+        "vitest": "^2.1.8"
     }
 }
