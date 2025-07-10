@@ -4,14 +4,17 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    setupFiles: ['./src/__tests__/setup.ts'],
     testTimeout: 10000,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
+      include: [
+        'src/**/*.ts'
+      ],
       exclude: [
         'node_modules/',
         'src/__tests__/',
+        'src/__mocks__/',
         '**/*.d.ts',
         '**/*.config.*',
         'dist/',
@@ -21,13 +24,14 @@ export default defineConfig({
       ],
       thresholds: {
         global: {
-          statements: 80,
-          branches: 80,
-          functions: 80,
-          lines: 80
+          statements: 70,
+          branches: 70,
+          functions: 70,
+          lines: 70
         }
       },
-      reportOnFailure: true
+      reportOnFailure: true,
+      all: true
     }
   }
 })

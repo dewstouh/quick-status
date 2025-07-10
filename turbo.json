@@ -34,7 +34,10 @@
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**", "test-results/**"],
-      "cache": false
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]

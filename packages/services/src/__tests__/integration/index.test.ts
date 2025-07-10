@@ -10,8 +10,8 @@ const mockPrisma = prisma as any;
 describe('Services Integration', () => {
   describe('Site and Outage workflow', () => {
     it('should create site, add outage, and retrieve complete data', async () => {
-      const mockSite = { id: 1, name: 'Test Site', url: 'https://test.example.com' };
-      const mockOutage = { id: 1, siteId: 1, type: OutageType.down };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Test Site', url: 'https://test.example.com' };
+      const mockOutage = { id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.down };
       const mockSiteWithOutages = { ...mockSite, outages: [mockOutage] };
       
       // Mock the sequence of calls
@@ -29,10 +29,10 @@ describe('Services Integration', () => {
         data: { name: 'Test Site', url: 'https://test.example.com' }
       });
       expect(mockPrisma.outage.create).toHaveBeenCalledWith({
-        data: { siteId: 1, type: OutageType.down }
+        data: { siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.down }
       });
       expect(mockPrisma.site.findUnique).toHaveBeenCalledWith({
-        where: { id: 1 },
+        where: { id: '550e8400-e29b-41d4-a716-446655440000' },
         include: { outages: true }
       });
       
@@ -40,9 +40,9 @@ describe('Services Integration', () => {
     });
 
     it('should handle multiple outages for a site', async () => {
-      const mockSite = { id: 1, name: 'Multi Outage Site' };
-      const mockOutage1 = { id: 1, siteId: 1, type: OutageType.down, endTime: null };
-      const mockOutage2 = { id: 2, siteId: 1, type: OutageType.degraded, endTime: null };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Multi Outage Site' };
+      const mockOutage1 = { id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.down, endTime: null };
+      const mockOutage2 = { id: '550e8400-e29b-41d4-a716-446655440002', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.degraded, endTime: null };
       const mockEndedOutage1 = { ...mockOutage1, endTime: new Date() };
       const mockOutages = [mockOutage2, mockEndedOutage1];
       
@@ -69,11 +69,11 @@ describe('Services Integration', () => {
     });
 
     it('should handle cascade delete properly', async () => {
-      const mockSite = { id: 1, name: 'Site to Delete' };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Site to Delete' };
       const mockDeletedSite = mockSite;
       
       mockPrisma.site.create.mockResolvedValue(mockSite);
-      mockPrisma.outage.create.mockResolvedValue({ id: 1, siteId: 1 });
+      mockPrisma.outage.create.mockResolvedValue({ id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000' });
       mockPrisma.site.delete.mockResolvedValue(mockDeletedSite);
       mockPrisma.site.findUnique.mockResolvedValue(null);
       mockPrisma.outage.findUnique.mockResolvedValue(null);
@@ -93,8 +93,8 @@ describe('Services Integration', () => {
 
   describe('Cross-service data consistency', () => {
     it('should maintain consistent outage data across services', async () => {
-      const mockSite = { id: 1, name: 'Consistency Site' };
-      const mockOutage = { id: 1, siteId: 1, type: OutageType.degraded };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Consistency Site' };
+      const mockOutage = { id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.degraded };
       
       mockPrisma.site.create.mockResolvedValue(mockSite);
       mockPrisma.outage.create.mockResolvedValue(mockOutage);
@@ -114,8 +114,8 @@ describe('Services Integration', () => {
 
     it('should handle outage history correctly across services', async () => {
       const since = new Date();
-      const mockSite = { id: 1, name: 'History Site' };
-      const mockOutage = { id: 1, siteId: 1, type: OutageType.down };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'History Site' };
+      const mockOutage = { id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.down };
       const mockHistory = [mockOutage];
       
       mockPrisma.site.create.mockResolvedValue(mockSite);

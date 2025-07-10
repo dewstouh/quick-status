@@ -10,7 +10,7 @@ describe('SiteService', () => {
   describe('create', () => {
     it('should create a new site successfully', async () => {
       const mockSite = {
-        id: 1,
+        id: '550e8400-e29b-41d4-a716-446655440000',
         name: 'Test Site',
         url: 'https://test.com',
         onlineChecks: 0,
@@ -52,18 +52,18 @@ describe('SiteService', () => {
   describe('getById', () => {
     it('should return site with outages when found', async () => {
       const mockSite = {
-        id: 1,
+        id: '550e8400-e29b-41d4-a716-446655440000',
         name: 'Test Site',
         url: 'https://test.com',
-        outages: [{ id: 1, siteId: 1, type: OutageType.down }]
+        outages: [{ id: '550e8400-e29b-41d4-a716-446655440001', siteId: '550e8400-e29b-41d4-a716-446655440000', type: OutageType.down }]
       };
       
       mockPrisma.site.findUnique.mockResolvedValue(mockSite);
 
-      const site = await SiteService.getById(1);
+      const site = await SiteService.getById('550e8400-e29b-41d4-a716-446655440000');
       
       expect(mockPrisma.site.findUnique).toHaveBeenCalledWith({
-        where: { id: 1 },
+        where: { id: '550e8400-e29b-41d4-a716-446655440000' },
         include: { outages: true }
       });
       expect(site).toEqual(mockSite);
@@ -72,14 +72,14 @@ describe('SiteService', () => {
     it('should return null when site not found', async () => {
       mockPrisma.site.findUnique.mockResolvedValue(null);
 
-      const site = await SiteService.getById(999);
+      const site = await SiteService.getById('550e8400-e29b-41d4-a716-446655440999');
       expect(site).toBeNull();
     });
   });
 
   describe('getByName', () => {
     it('should return site when found', async () => {
-      const mockSite = { id: 1, name: 'Test Site', url: 'https://test.com' };
+      const mockSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Test Site', url: 'https://test.com' };
       mockPrisma.site.findUnique.mockResolvedValue(mockSite);
 
       const site = await SiteService.getByName('Test Site');
@@ -113,8 +113,8 @@ describe('SiteService', () => {
 
     it('should return all sites with outages', async () => {
       const mockSites = [
-        { id: 1, name: 'Site 1', outages: [{ type: OutageType.down }] },
-        { id: 2, name: 'Site 2', outages: [] }
+        { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Site 1', outages: [{ type: OutageType.down }] },
+        { id: '550e8400-e29b-41d4-a716-446655440001', name: 'Site 2', outages: [] }
       ];
       
       mockPrisma.site.findMany.mockResolvedValue(mockSites);
@@ -128,8 +128,8 @@ describe('SiteService', () => {
   describe('addOutage', () => {
     it('should create outage for existing site', async () => {
       const mockOutage = {
-        id: 1,
-        siteId: 1,
+        id: '550e8400-e29b-41d4-a716-446655440001',
+        siteId: '550e8400-e29b-41d4-a716-446655440000',
         type: OutageType.degraded,
         startTime: new Date(),
         endTime: null
@@ -137,11 +137,11 @@ describe('SiteService', () => {
       
       mockPrisma.outage.create.mockResolvedValue(mockOutage);
 
-      const outage = await SiteService.addOutage(1, OutageType.degraded);
+      const outage = await SiteService.addOutage('550e8400-e29b-41d4-a716-446655440000', OutageType.degraded);
       
       expect(mockPrisma.outage.create).toHaveBeenCalledWith({
         data: {
-          siteId: 1,
+          siteId: '550e8400-e29b-41d4-a716-446655440000',
           type: OutageType.degraded
         }
       });
@@ -151,7 +151,7 @@ describe('SiteService', () => {
     it('should throw error for non-existent site', async () => {
       mockPrisma.outage.create.mockRejectedValue(new Error('Foreign key constraint failed'));
 
-      await expect(SiteService.addOutage(999, OutageType.down))
+      await expect(SiteService.addOutage('550e8400-e29b-41d4-a716-446655440999', OutageType.down))
         .rejects.toThrow('Foreign key constraint failed');
     });
   });
@@ -159,7 +159,7 @@ describe('SiteService', () => {
   describe('update', () => {
     it('should update site successfully', async () => {
       const mockUpdatedSite = {
-        id: 1,
+        id: '550e8400-e29b-41d4-a716-446655440000',
         name: 'Updated Name',
         url: 'https://original.com',
         onlineChecks: 10,
@@ -169,14 +169,14 @@ describe('SiteService', () => {
       
       mockPrisma.site.update.mockResolvedValue(mockUpdatedSite);
 
-      const updatedSite = await SiteService.update(1, {
+      const updatedSite = await SiteService.update('550e8400-e29b-41d4-a716-446655440000', {
         name: 'Updated Name',
         onlineChecks: 10,
         totalChecks: 12
       });
       
       expect(mockPrisma.site.update).toHaveBeenCalledWith({
-        where: { id: 1 },
+        where: { id: '550e8400-e29b-41d4-a716-446655440000' },
         data: {
           name: 'Updated Name',
           onlineChecks: 10,
@@ -189,20 +189,20 @@ describe('SiteService', () => {
     it('should throw error when updating non-existent site', async () => {
       mockPrisma.site.update.mockRejectedValue(new Error('Record to update not found'));
 
-      await expect(SiteService.update(999, { name: 'New Name' }))
+      await expect(SiteService.update('550e8400-e29b-41d4-a716-446655440999', { name: 'New Name' }))
         .rejects.toThrow('Record to update not found');
     });
   });
 
   describe('delete', () => {
     it('should delete site successfully', async () => {
-      const mockDeletedSite = { id: 1, name: 'Test Site' };
+      const mockDeletedSite = { id: '550e8400-e29b-41d4-a716-446655440000', name: 'Test Site' };
       mockPrisma.site.delete.mockResolvedValue(mockDeletedSite);
 
-      const deletedSite = await SiteService.delete(1);
+      const deletedSite = await SiteService.delete('550e8400-e29b-41d4-a716-446655440000');
       
       expect(mockPrisma.site.delete).toHaveBeenCalledWith({
-        where: { id: 1 }
+        where: { id: '550e8400-e29b-41d4-a716-446655440000' }
       });
       expect(deletedSite).toEqual(mockDeletedSite);
     });
@@ -210,7 +210,7 @@ describe('SiteService', () => {
     it('should throw error when deleting non-existent site', async () => {
       mockPrisma.site.delete.mockRejectedValue(new Error('Record to delete does not exist'));
 
-      await expect(SiteService.delete(999))
+      await expect(SiteService.delete('550e8400-e29b-41d4-a716-446655440999'))
         .rejects.toThrow('Record to delete does not exist');
     });
   });
