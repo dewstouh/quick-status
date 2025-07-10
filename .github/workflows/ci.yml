@@ -37,18 +37,11 @@ jobs:
         env:
           DATABASE_URL: file:./test.db
 
-      - name: Prepare test database
-        run: npx turbo db:migrate --force && npx turbo db:push --force
-        env:
-          DATABASE_URL: file:./test.db
-
       - name: Run lint
         run: npx turbo lint
 
       - name: Run tests
         run: npx turbo test
-        env:
-          DATABASE_URL: file:./test.db
           
   docker-build:
     name: Build Docker Image

@@ -29,8 +29,7 @@
     "test": {
       "dependsOn": [
         "^test",
-        "db:generate",
-        "db:migrate:test"
+        "db:generate"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**", "test-results/**"],
