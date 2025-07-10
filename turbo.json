@@ -30,6 +30,12 @@
         "DATABASE_URL"
       ]
     },
+    "db:migrate:test": {
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
     "db:deploy": {
       "cache": false,
       "env": [
@@ -60,7 +66,9 @@
     },
     "test": {
       "dependsOn": [
-        "^test"
+        "^test",
+        "db:generate",
+        "db:migrate:test"
       ],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["coverage/**", "test-results/**"],
