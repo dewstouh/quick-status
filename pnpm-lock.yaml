@@ -159,6 +159,9 @@ importers:
         specifier: workspace:^
         version: link:../db
     devDependencies:
+      '@quick-status/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
       '@quick-status/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config

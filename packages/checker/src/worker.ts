@@ -9,7 +9,7 @@ export const job = new CronJob('*/30 * * * * *', async () => {
     for (const site of sites) {
         try {
             const response = await check(site.url);
-            let updateData = {
+            const updateData = {
                 lastStatus: StatusType[response.status],
                 lastResponseTime: response.responseTime,
                 lastCheckedAt: new Date(),

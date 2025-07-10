@@ -18,7 +18,7 @@ export async function check(url: string): Promise<CheckResult> {
         } else if (res.status >= 500) {
             status = "down";
         }
-    } catch (err) {
+    } catch {
         responseTime = Date.now() - start;
         status = "down";
     }

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { SiteService } from '../../site';
 import { OutageService } from '../../outage';
 import { OutageType } from "@quick-status/db";
@@ -21,7 +21,7 @@ describe('Services Integration', () => {
 
       // Execute the workflow
       const site = await SiteService.create('Test Site', 'https://test.example.com');
-      const outage = await OutageService.create(site.id, OutageType.down);
+      await OutageService.create(site.id, OutageType.down);
       const siteWithOutages = await SiteService.getById(site.id);
       
       // Verify the calls were made correctly

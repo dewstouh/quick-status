@@ -18,14 +18,14 @@ async function main() {
     try {
         await prisma.outage.deleteMany();
         console.log('✅ Cleared existing outages');
-    } catch (error) {
+    } catch {
         console.log('ℹ️ No outages to clear (table might not exist yet)');
     }
     
     try {
         await prisma.site.deleteMany();
         console.log('✅ Cleared existing sites');
-    } catch (error) {
+    } catch {
         console.log('ℹ️ No sites to clear (table might not exist yet)');
     }
 
