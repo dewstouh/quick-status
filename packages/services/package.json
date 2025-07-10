@@ -6,6 +6,7 @@
         ".": "./dist/index.js"
     },
     "scripts": {
+        "lint": "eslint . --max-warnings 0",
         "test": "vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
@@ -15,6 +16,7 @@
         "@quick-status/db": "workspace:^"
     },
     "devDependencies": {
+        "@quick-status/eslint-config": "workspace:*",
         "@quick-status/typescript-config": "workspace:^",
         "vitest": "^2.1.8",
         "@vitest/coverage-v8": "^2.1.8",
