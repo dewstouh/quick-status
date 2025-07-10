@@ -18,8 +18,8 @@
     "devDependencies": {
         "@quick-status/eslint-config": "workspace:*",
         "@quick-status/typescript-config": "workspace:^",
-        "vitest": "^2.1.8",
-        "@vitest/coverage-v8": "^2.1.8",
-        "prisma": "^6.9.0"
+        "@vitest/coverage-v8": "^3.2.4",
+        "prisma": "^6.9.0",
+        "vitest": "^3.2.4"
     }
 }
