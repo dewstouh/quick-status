@@ -2,7 +2,7 @@ import { OutageType } from "@quick-status/db";
 import prisma from '@quick-status/db';
 
 export class OutageService {
-    static async create(siteId: number, type: OutageType) {
+    static async create(siteId: string, type: OutageType) {
         return prisma.outage.create({
             data: {
                 siteId,
@@ -11,27 +11,27 @@ export class OutageService {
         })
     }
 
-    static async get(id: number) {
+    static async get(id: string) {
         return prisma.outage.findUnique({
             where: { id }
         })
     }
 
-    static async end(id: number) {
+    static async end(id: string) {
         return prisma.outage.update({
             where: { id },
             data: { endTime: new Date() }
         })
     }
 
-    static async getSiteOutages(siteId: number) {
+    static async getSiteOutages(siteId: string) {
         return prisma.outage.findMany({
             where: { siteId },
             orderBy: { startTime: 'desc' }
         });
     }
 
-    static async getActiveBySite(siteId: number) {
+    static async getActiveBySite(siteId: string) {
         return prisma.outage.findFirst({
             where: {
                 siteId,
@@ -41,7 +41,7 @@ export class OutageService {
         });
     }
 
-    static async getHistory(siteId: number, since: Date) {
+    static async getHistory(siteId: string, since: Date) {
         return prisma.outage.findMany({
             where: {
                 siteId,

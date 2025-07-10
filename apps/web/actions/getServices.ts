@@ -4,7 +4,7 @@ import { OutageType, SiteService, StatusType } from "@quick-status/services";
 import { getUptime } from "../lib/utils";
 
 export type Outage = {
-    id: number;
+    id: string;
     type: OutageType;
     startTime: Date;
     endTime: Date | null; // Nullable if the outage is ongoing

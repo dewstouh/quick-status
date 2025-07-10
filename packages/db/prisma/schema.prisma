@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Site {
-  id               Int       @id @default(autoincrement())
+  id               String       @id @default(uuid())
   name             String    @unique
   url              String    @unique
   onlineChecks     Int       @default(0)
@@ -33,8 +33,8 @@ enum StatusType {
 }
 
 model Outage {
-  id        Int        @id @default(autoincrement())
-  siteId    Int
+  id        String        @id @default(uuid())
+  siteId    String
   startTime DateTime   @default(now())
   endTime   DateTime?
   site      Site       @relation(fields: [siteId], references: [id], onDelete: Cascade)

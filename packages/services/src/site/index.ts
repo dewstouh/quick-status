@@ -11,7 +11,7 @@ export class SiteService {
         })
     }
 
-    static async getById(id: number) {
+    static async getById(id: string) {
         return prisma.site.findUnique({
             where: { id },
             include: {
@@ -46,7 +46,7 @@ export class SiteService {
         });
     }
 
-    static async addOutage(siteId: number, type: OutageType) {
+    static async addOutage(siteId: string, type: OutageType) {
         return prisma.outage.create({
             data: {
                 siteId,
@@ -55,7 +55,7 @@ export class SiteService {
         })
     }
 
-    static async getActiveOutage(siteId: number) {
+    static async getActiveOutage(siteId: string) {
         return prisma.outage.findFirst({
             where: {
                 siteId,
@@ -65,7 +65,7 @@ export class SiteService {
         });
     }
 
-    static async getOutageHistory(siteId: number, since: Date) {
+    static async getOutageHistory(siteId: string, since: Date) {
         return prisma.outage.findMany({
             where: {
                 siteId,
@@ -75,14 +75,14 @@ export class SiteService {
         });
     }
 
-    static async update(id: number, data: Prisma.SiteUpdateInput) {
+    static async update(id: string, data: Prisma.SiteUpdateInput) {
         return prisma.site.update({
             where: { id },
             data
         })
     }
 
-    static async delete(id: number) {
+    static async delete(id: string) {
         return prisma.site.delete({
             where: { id }
         })

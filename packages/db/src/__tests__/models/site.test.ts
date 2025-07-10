@@ -12,7 +12,7 @@ describe('Site Model', () => {
             })
 
             expect(site).toMatchObject({
-                id: expect.any(Number),
+                id: expect.any(String),
                 name: 'Test Site',
                 url: 'https://test.com',
                 onlineChecks: 0,

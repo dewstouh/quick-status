@@ -19,7 +19,7 @@ describe('Outage Model', () => {
             })
 
             expect(outage).toMatchObject({
-                id: expect.any(Number),
+                id: expect.any(String),
                 siteId: site.id,
                 type: 'down',
                 startTime: expect.any(Date),

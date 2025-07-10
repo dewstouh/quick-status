@@ -12,18 +12,14 @@ beforeAll(async () => {
         console.error('[SETUP] Failed to connect/setup DB:', err)
         throw err
     }
-  })
+})
 
 beforeEach(async () => {
-    try {
-        await prisma.outage.deleteMany()
-        await prisma.site.deleteMany()
-        console.log('[BEFORE EACH] Database cleaned.')
-    } catch (err) {
-        console.error('[BEFORE EACH] Error cleaning DB:', err)
-        throw err
-    }
-  })
+    // Clean everything for isolation
+    await prisma.outage.deleteMany()
+    await prisma.site.deleteMany()
+    await prisma.$executeRawUnsafe('PRAGMA foreign_keys = ON')
+})
 
 afterAll(async () => {
     try {
@@ -33,4 +29,4 @@ afterAll(async () => {
         console.error('[TEARDOWN] Error disconnecting DB:', err)
         throw err
     }
-  })
+})
