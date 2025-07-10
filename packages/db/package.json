@@ -6,11 +6,11 @@
         ".": "./dist/index.js"
     },
     "scripts": {
-        "generate": "prisma generate",
-        "migrate:dev": "prisma migrate dev",
-        "migrate:reset": "prisma migrate reset",
-        "migrate:deploy": "prisma migrate deploy",
-        "push": "prisma db push",
+        "db:generate": "npx prisma generate",
+        "db:migrate": "npx prisma migrate dev",
+        "db:migrate:reset": "npx prisma migrate reset",
+        "db:migrate:deploy": "npx prisma migrate deploy",
+        "db:push": "npx prisma db push",
         "studio": "prisma studio",
         "client": "prisma studio",
         "test": "vitest run --coverage",
@@ -21,7 +21,6 @@
         "build": "tsc -b tsconfig.build.json"
     },
     "dependencies": {
-        "@prisma/client": "6.9.0",
         "@prisma/extension-accelerate": "^2.0.1"
     },
     "devDependencies": {

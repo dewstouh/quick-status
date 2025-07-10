@@ -32,27 +32,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate Prisma client
-        run: pnpm --filter @quick-status/db generate
-
       - name: Build packages
-        run: pnpm run build
+        run: npx turbo build
 
       - name: Setup test database
         run: |
-          cd packages/db
-          rm -f *.db test.db
-          DATABASE_URL="file:./test.db" npx prisma db push --force-reset
-          # Ensure foreign keys are enabled in CI
-          echo "PRAGMA foreign_keys = ON;" | sqlite3 test.db
+          npx turbo db:push
         env:
           DATABASE_URL: file:./test.db
 
       - name: Run lint
-        run: pnpm lint
+        run: npx turbo lint
 
       - name: Run tests
-        run: pnpm test
+        run: npx turbo test
         env:
           DATABASE_URL: file:./test.db
           

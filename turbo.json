@@ -3,24 +3,65 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [
         "dist/**",
         ".next/**",
         "!.next/cache/**"
+      ],
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
+    "db:generate": {
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
+    "db:migrate": {
+      "cache": false,
+      "persistent": true, // This is necessary to interact with the CLI and assign names to your database migrations.
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
+    "db:deploy": {
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
+    "db:push": {
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
+      ]
+    },
+    "seed": {
+      "dependsOn": ["db:generate", "db:push"],
+      "cache": false,
+      "env": [
+        "DATABASE_URL"
       ]
     },
     "start": {
       "dependsOn": ["^start"],
       "persistent": true,
       "cache": false,
-      "inputs": ["$TURBO_DEFAULT$", ".env*"]
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": [
+        "DATABASE_URL"
+      ]
     },
     "test": {
-      "dependsOn": ["^test"],
+      "dependsOn": ["^test", "^db:generate"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": ["coverage/**", "test-results/**"]
+      "outputs": ["coverage/**", "test-results/**"],
+      "env": [
+        "DATABASE_URL"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -29,8 +70,12 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "dependsOn": ["^db:generate", "^db:push"],
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": [
+        "DATABASE_URL"
+      ]
     }
   }
 }

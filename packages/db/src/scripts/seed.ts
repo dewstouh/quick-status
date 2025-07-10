@@ -1,13 +1,33 @@
-import { PrismaClient, OutageType } from '@prisma/client';
+import { PrismaClient, OutageType } from "@quick-status/db";
 
 const prisma = new PrismaClient();
 
 async function main() {
     console.log('🌱 Starting database seeding...');
 
-    // Clear existing data
-    await prisma.outage.deleteMany();
-    await prisma.site.deleteMany();
+    // Ensure database is connected and tables exist
+    try {
+        await prisma.$connect();
+        console.log('✅ Database connection established');
+    } catch (error) {
+        console.error('❌ Failed to connect to database:', error);
+        throw error;
+    }
+
+    // Clear existing data (with error handling for non-existent tables)
+    try {
+        await prisma.outage.deleteMany();
+        console.log('✅ Cleared existing outages');
+    } catch (error) {
+        console.log('ℹ️ No outages to clear (table might not exist yet)');
+    }
+    
+    try {
+        await prisma.site.deleteMany();
+        console.log('✅ Cleared existing sites');
+    } catch (error) {
+        console.log('ℹ️ No sites to clear (table might not exist yet)');
+    }
 
     // Create sites with realistic monitoring data
     const sites = await Promise.all([

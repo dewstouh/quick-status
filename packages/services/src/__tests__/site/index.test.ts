@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { SiteService } from '../../site';
-import { OutageType } from '@prisma/client';
+import { OutageType } from "@quick-status/db";
 import prisma from '@quick-status/db';
 
 // Cast to any for simple mocking

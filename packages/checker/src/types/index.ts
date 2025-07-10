@@ -1,4 +1,4 @@
-import { StatusType } from '@prisma/client';
+import { StatusType } from "@quick-status/db";
 
 export type CheckResult = {
     responseTime: number; // ms

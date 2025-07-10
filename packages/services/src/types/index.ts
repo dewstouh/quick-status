@@ -1,2 +1,2 @@
-export { OutageType, StatusType } from '@prisma/client';
+export { OutageType, StatusType } from "@quick-status/db";
 

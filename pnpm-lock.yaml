@@ -72,6 +72,9 @@ importers:
 
   packages/checker:
     dependencies:
+      '@quick-status/db':
+        specifier: workspace:^
+        version: link:../db
       '@quick-status/services':
         specifier: workspace:^
         version: link:../services
@@ -79,9 +82,6 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
     devDependencies:
-      '@prisma/client':
-        specifier: 6.9.0
-        version: 6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
       '@quick-status/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config
@@ -91,9 +91,6 @@ importers:
 
   packages/db:
     dependencies:
-      '@prisma/client':
-        specifier: 6.9.0
-        version: 6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
       '@prisma/extension-accelerate':
         specifier: ^2.0.1
         version: 2.0.2(@prisma/client@6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3))
@@ -159,9 +156,6 @@ importers:
         specifier: workspace:^
         version: link:../db
     devDependencies:
-      '@prisma/client':
-        specifier: ^6.9.0
-        version: 6.9.0(prisma@6.11.1(typescript@5.8.3))(typescript@5.8.3)
       '@quick-status/typescript-config':
         specifier: workspace:^
         version: link:../typescript-config

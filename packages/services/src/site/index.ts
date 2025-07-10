@@ -1,4 +1,4 @@
-import { OutageType, Prisma } from "@prisma/client";
+import { OutageType, Prisma } from "@quick-status/db"
 import prisma from "@quick-status/db";
 
 export class SiteService {

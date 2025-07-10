@@ -19,10 +19,14 @@ const mockPrisma = {
   }
 } as any;
 
-// Mock the Prisma client
-vi.mock('@quick-status/db', () => ({
-  default: mockPrisma
-}));
+// Mock the @quick-status/db module while preserving types and enums
+vi.mock('@quick-status/db', async (importOriginal) => {
+  const actual = await importOriginal() as any;
+  return {
+    ...actual,
+    default: mockPrisma
+  };
+});
 
 beforeEach(() => {
   // Clear all mock call history and reset return values

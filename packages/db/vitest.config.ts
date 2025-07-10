@@ -16,7 +16,8 @@ export default defineConfig({
         '**/*.config.*',
         'dist/',
         'prisma/',
-        'src/scripts/'
+        'src/scripts/',
+        'generated/'
       ],
       thresholds: {
         global: {
