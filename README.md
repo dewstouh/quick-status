@@ -77,6 +77,11 @@ pnpm run dev
 # How it works
 Quick Status monitors the services listed in `sites.txt` by checking their availability and response time every 30s or every refresh.
 
+
+# Roadmap
+- [ ] Add simple registration system to manage service tracking from web interface
+- [ ] Add Favicons
+
 # History behind Quick Status
 Quick Status was created out of a need for a simple, lightweight status page solution for **[Quickfra](https://quickfra.com)** that could be set up quickly and easily. Many existing solutions were either too complex or bloated with features that weren't necessary for the use case. Quick Status aims to provide a straightforward, no-frills status page that can be deployed in seconds and be configured with minimal effort.
 
