@@ -1,6 +1,6 @@
-import { getServices } from "../actions/getServices";
 import { StatusBanner } from "../components/StatusBanner";
 import { SystemStatus } from "../components/SystemStatus";
+import { getServices } from "../lib/data/getServices";
 import { getBannerState } from "../lib/utils";
 
 export default async function HomePage() {
