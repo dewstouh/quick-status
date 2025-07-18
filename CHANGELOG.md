@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/dewstouh/quick-status/compare/v1.0.0...v1.1.0) (2025-07-18)
+
+
+### Features
+
+* add example .env configuration ([1595080](https://github.com/dewstouh/quick-status/commit/1595080c032d3041c580ef5f10563e8657af655f))
+
+
+### Bug Fixes
+
+* **web:** adjust path getServices function for components using it ([526eb29](https://github.com/dewstouh/quick-status/commit/526eb29aa40ca55393a1fc8d6e5616bdf71432d9))
+
 ## 1.0.0 (2025-07-11)
 
 
