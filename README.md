@@ -74,6 +74,15 @@ pnpm install
 pnpm run dev
 ```
 
+## Building for Production
+To build the application for production, run:
+```bash
+pnpm run build
+```
+
+<video src="https://i.imgur.com/dfvDlj7.mp4" controls width="100%">
+</video>
+
 # Testing
 
 ## Seeding the Database
