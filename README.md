@@ -74,6 +74,47 @@ pnpm install
 pnpm run dev
 ```
 
+## Building for Production
+To build the application for production, run:
+```bash
+pnpm run build
+```
+
+<video src="https://i.imgur.com/dfvDlj7.mp4" controls width="100%">
+</video>
+
+# Testing
+
+## Seeding the Database
+```
+npx turbo db:seed
+```
+<video src="https://i.imgur.com/MbxP6nX.mp4" controls width="100%">
+</video>
+
+To run tests, use the following command:
+```bash
+pnpm test
+```
+
+<video src="https://i.imgur.com/7et4hsj.mp4" controls width="100%">
+</video>
+
+## Testing Workflows Locally
+I personally use `act` to test the workflows locally. You can install it using:
+
+```bash
+brew install act
+```
+
+And then just start the workflow with:
+```bash
+act
+```
+<video src="https://i.imgur.com/ChvYXGa.mp4" controls width="100%">
+</video>
+
+
 # How it works
 Quick Status monitors the services listed in `sites.txt` by checking their availability and response time every 30s or every refresh.
 

@@ -1,6 +1,6 @@
 import { UptimeChart } from './UptimeChart'
 import { StatusIndicator } from './StatusIndicator'
-import { ServiceStatus } from '../actions/getServices'
+import { ServiceStatus } from '../lib/data/getServices'
 
 interface ServiceCardProps extends ServiceStatus {
 }

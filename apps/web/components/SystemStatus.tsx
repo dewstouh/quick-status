@@ -1,4 +1,4 @@
-import { ServiceStatus } from '../actions/getServices'
+import { ServiceStatus } from '../lib/data/getServices'
 import { ServiceCard } from './ServiceCard'
 
 interface PageProps {

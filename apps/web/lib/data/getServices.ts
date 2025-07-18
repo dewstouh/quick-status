@@ -1,7 +1,7 @@
 "use server";
 
 import { OutageType, SiteService, StatusType } from "@quick-status/services";
-import { getUptime } from "../lib/utils";
+import { getUptime } from "../utils";
 
 export type Outage = {
     id: string;
