@@ -35,7 +35,8 @@ jobs:
       - name: Build packages
         run: npx turbo build
         env:
-          DATABASE_URL: file:./test.db
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       - name: Run lint
         run: npx turbo lint
