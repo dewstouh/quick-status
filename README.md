@@ -80,8 +80,8 @@ To build the application for production, run:
 pnpm run build
 ```
 
-<video src="https://i.imgur.com/dfvDlj7.mp4" controls width="100%">
-</video>
+https://github.com/user-attachments/assets/21fe6a74-29de-4d8e-adec-f978f9f1ea81
+
 
 # Testing
 
@@ -89,16 +89,14 @@ pnpm run build
 ```
 npx turbo db:seed
 ```
-<video src="https://i.imgur.com/MbxP6nX.mp4" controls width="100%">
-</video>
+https://github.com/user-attachments/assets/a9d6c0d7-609f-4eae-bdcf-055951b1bda3
 
 To run tests, use the following command:
 ```bash
 pnpm test
 ```
 
-<video src="https://i.imgur.com/7et4hsj.mp4" controls width="100%">
-</video>
+https://github.com/user-attachments/assets/d3fd759a-0dee-4e38-a51f-ce5ddfcf961b
 
 ## Testing Workflows Locally
 I personally use `act` to test the workflows locally. You can install it using:
@@ -111,8 +109,7 @@ And then just start the workflow with:
 ```bash
 act
 ```
-<video src="https://i.imgur.com/ChvYXGa.mp4" controls width="100%">
-</video>
+https://github.com/user-attachments/assets/84ea693a-2150-4802-82b1-4f9e2381c778
 
 
 # How it works
