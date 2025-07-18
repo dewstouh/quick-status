@@ -1,4 +1,4 @@
-import { Outage } from "../actions/getServices";
+import { Outage } from "../lib/data/getServices";
 
 type StatusType = "operational" | "down" | "degraded" | "unknown";
 

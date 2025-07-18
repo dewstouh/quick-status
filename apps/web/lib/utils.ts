@@ -1,4 +1,4 @@
-import { ServiceStatus } from "../actions/getServices";
+import { ServiceStatus } from "../lib/data/getServices";
 
 export function getUptime(totalChecks:number, onlineChecks: number){
     return ((onlineChecks / totalChecks) * 100).toFixed(2)
