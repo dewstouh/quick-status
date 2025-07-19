@@ -16,6 +16,7 @@ You can view a live demo of Quick Status here: https://demo-quickstatus.justdieg
 
 # Features
 - **Easy to Use**: Quick setup with minimal configuration.
+- **REST API**: Full REST API for programmatic service management.
 - **Customizable**: Tailor the status page to fit your brand.
 - **Real-time Updates**: Instant updates to your service status.
 - **Responsive Design**: Looks great on all devices.
@@ -117,6 +118,54 @@ act
 
 # How it works
 Quick Status monitors the services listed in `sites.txt` by checking their availability and response time every 30s or every refresh.
+
+# API Documentation
+
+Quick Status provides a comprehensive REST API for programmatically managing services and outages. The API allows you to:
+
+- **Manage Services**: Create, read, update, and delete monitored services
+- **Track Outages**: Create and manage service outages and incidents  
+- **Monitor Status**: Get real-time service status and uptime information
+- **Access History**: Retrieve historical outage data and service metrics
+
+## Quick API Reference
+
+### Services
+- `GET /api/services` - Get all services with status info
+- `POST /api/services` - Create a new service
+- `GET /api/services/{id}` - Get specific service details
+- `PUT /api/services/{id}` - Update service information
+- `DELETE /api/services/{id}` - Remove a service
+
+### Outages  
+- `GET /api/outages?siteId={id}` - Get outages for a service
+- `POST /api/outages` - Create a new outage
+- `GET /api/outages/{id}` - Get specific outage details
+- `PUT /api/outages/{id}` - End an outage
+
+### Health Check
+- `GET /api/health` - API health status
+
+## Example Usage
+
+```bash
+# Get all services
+curl http://localhost:3000/api/services
+
+# Create a new service
+curl -X POST http://localhost:3000/api/services \
+  -H "Content-Type: application/json" \
+  -d '{"name": "My Website", "url": "https://mywebsite.com"}'
+
+# Create an outage
+curl -X POST http://localhost:3000/api/outages \
+  -H "Content-Type: application/json" \
+  -d '{"siteId": "service-id", "type": "down"}'
+```
+
+📖 **[Full API Documentation](apps/web/app/api/README.md)**
+
+All endpoints return JSON responses and follow RESTful conventions. No authentication is currently required.
 
 
 # Roadmap
