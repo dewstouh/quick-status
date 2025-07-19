@@ -2,7 +2,7 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - 'docker/**'
       - 'apps/**'
@@ -11,7 +11,7 @@ on:
       - 'pnpm-lock.yaml'
       - 'turbo.json'
   pull_request:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - 'docker/**'
       - 'apps/**'
