@@ -1,4 +1,4 @@
-name: Docker Build
+name: Docker Build and Push
 
 on:
   push:
@@ -23,7 +23,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: dewstouh/quick-status
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   docker-build:
@@ -68,8 +68,12 @@ jobs:
           context: .
           file: docker/images/quick-status/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: '${{ github.repository }}:${{ matrix.architecture }}' # push it to quick-status/quick-status:architecture, e.g quick-status/quick-status:amd64
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/${{ matrix.architecture }}
+          tags: | # push it to quick-status/quick-status:architecture, e.g quick-status/quick-status:amd64
+            ${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:${{ matrix.architecture }}
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.sha }}
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.architecture }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max 
