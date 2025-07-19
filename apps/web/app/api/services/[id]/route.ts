@@ -3,11 +3,12 @@ import { SiteService } from "@quick-status/services";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const service = await SiteService.getById(params.id);
-        
+        const id = (await params).id;
+        const service = await SiteService.getById(id);
+
         if (!service) {
             return NextResponse.json(
                 { error: "Service not found" },
@@ -27,7 +28,7 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         const body = await request.json();
@@ -42,7 +43,8 @@ export async function PUT(
         if (lastStatus !== undefined) updateData.lastStatus = lastStatus;
         if (lastCheckedAt !== undefined) updateData.lastCheckedAt = new Date(lastCheckedAt);
 
-        const service = await SiteService.update(params.id, updateData);
+        const id = (await params).id;
+        const service = await SiteService.update(id, updateData);
         return NextResponse.json(service);
     } catch (error) {
         console.error("Error updating service:", error);
@@ -55,10 +57,11 @@ export async function PUT(
 
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        await SiteService.delete(params.id);
+        const id = (await params).id;
+        await SiteService.delete(id);
         return NextResponse.json({ message: "Service deleted successfully" });
     } catch (error) {
         console.error("Error deleting service:", error);

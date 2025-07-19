@@ -3,10 +3,11 @@ import { OutageService } from "@quick-status/services";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const outages = await OutageService.getSiteOutages(params.id);
+        const id = (await params).id;
+        const outages = await OutageService.getSiteOutages(id);
         return NextResponse.json(outages);
     } catch (error) {
         console.error("Error fetching outages:", error);
