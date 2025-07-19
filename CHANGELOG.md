@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/dewstouh/quick-status/compare/v1.1.0...v1.2.0) (2025-07-19)
+
+
+### Features
+
+* add api implementation for healthcheck, outages and services + documentation ([16eb599](https://github.com/dewstouh/quick-status/commit/16eb5995b8dc2d7276f0d18493d3805ec3c4fff1))
+
+
+### Bug Fixes
+
+* **api:** await params in outage route handler ([ada0042](https://github.com/dewstouh/quick-status/commit/ada0042b599a5f9ada89c5f35f8acf1ef5fc3035))
+
 ## [1.1.0](https://github.com/dewstouh/quick-status/compare/v1.0.0...v1.1.0) (2025-07-18)
 
 
