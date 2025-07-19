@@ -1,37 +1,52 @@
-# --- Build Stage ---
-FROM node:20-alpine AS builder
+# --- Base Stage ---
+FROM node:20-alpine AS base
 
+RUN apk add --no-cache libc6-compat git curl
+
+RUN npm install pnpm turbo --global
+RUN pnpm config set store-dir ~/.pnpm-store
+
+# Install pnpm
+RUN npm install -g pnpm@9
+
+# Set working dir
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm@9
-RUN pnpm install --frozen-lockfile
-
+# Copy repo files
 COPY . .
 
+# Install dependencies
+RUN pnpm install
+
+# Generate Prisma client
 RUN pnpm --filter @quick-status/db generate
+
+# Build app
 RUN pnpm build
 
+
+RUN rm -rf /tmp/* /root/.npm /root/.cache/node /opt/yarn* && \
+    apk del apk-tools
+
+
 # --- Production Stage ---
-FROM node:20-alpine AS prod
+FROM node:20-alpine AS production
+COPY --from=base / /
 
-WORKDIR /app
-
-COPY package.json pnpm-lock.yaml ./
-RUN npm install -g pnpm@9
-RUN pnpm install --prod --frozen-lockfile
-
-COPY --from=builder /app/packages /app/packages
-COPY --from=builder /app/apps /app/apps
-
+# Apply DB migrations 
 RUN pnpm --filter @quick-status/db migrate:deploy || pnpm --filter @quick-status/db push
 
 # Expose port
 EXPOSE 3000
 
+# Set env
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Solo lanza el server de prod, nunca el dev
-CMD ["pnpm", "start"]
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget --spider -q http://localhost:3000/health || exit 1
+
+# Start app
+CMD ["pnpm", "run", "start"]
