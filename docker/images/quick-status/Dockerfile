@@ -1,44 +1,37 @@
-# Dockerfile for Quick Status
+# --- Build Stage ---
+FROM node:20-alpine AS builder
 
-FROM node:20-alpine AS base
-
-
-# System dependencies
-RUN apk update
-RUN apk add --no-cache libc6-compat git curl
-
-RUN npm install pnpm turbo --global
-RUN pnpm config set store-dir ~/.pnpm-store
-
-# Install pnpm
-RUN npm install -g pnpm@9
-
-# Set working directory
 WORKDIR /app
 
-# Copy repo files
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm@9
+RUN pnpm install --frozen-lockfile
+
 COPY . .
 
-# Install dependencies
-RUN pnpm install
-
-# Generate Prisma client (si hace falta, depende del monorepo)
 RUN pnpm --filter @quick-status/db generate
-
-# Build the application
 RUN pnpm build
 
-# Create DB directory and apply migrations
-RUN mkdir -p packages/db/prisma
+# --- Production Stage ---
+FROM node:20-alpine AS prod
+
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm@9
+RUN pnpm install --prod --frozen-lockfile
+
+COPY --from=builder /app/packages /app/packages
+COPY --from=builder /app/apps /app/apps
+
 RUN pnpm --filter @quick-status/db migrate:deploy || pnpm --filter @quick-status/db push
 
-# Expose port (ajusta si es otro)
+# Expose port
 EXPOSE 3000
 
-# Set env
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-# Start the app (ajusta el script según tu monorepo, esto espera que "start" esté en el root package.json)
-CMD ["pnpm", "run", "start"]
+# Solo lanza el server de prod, nunca el dev
+CMD ["pnpm", "start"]
