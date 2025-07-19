@@ -2,7 +2,7 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: [main, dev]
+    branches: ["main", "dev"] # Build on main and dev branches
     paths:
       - 'docker/**'
       - 'apps/**'
@@ -11,14 +11,6 @@ on:
       - 'pnpm-lock.yaml'
       - 'turbo.json'
   pull_request:
-    branches: [main, dev]
-    paths:
-      - 'docker/**'
-      - 'apps/**'
-      - 'packages/**'
-      - 'package.json'
-      - 'pnpm-lock.yaml'
-      - 'turbo.json'
   workflow_dispatch: # Allow manual trigger
 
 env:
@@ -29,10 +21,10 @@ jobs:
   docker-build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     strategy:
       matrix:
-        architecture: [amd64] # Run on both platforms
+        architecture: [amd64, arm64] # Run on both platforms
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -78,10 +70,12 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/${{ matrix.architecture }}
-          tags: | # push it to quick-status/quick-status:architecture, e.g quick-status/quick-status:amd64
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.ref_name }}
             ${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.sha }}
-            ${{ env.IMAGE_NAME }}:${{ matrix.architecture }}
+            ${{ github.ref_name == 'main' && format('{0}:{1}', env.IMAGE_NAME, matrix.architecture) || '' }}
+            ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.ref_name }}
             ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.architecture }}-${{ github.sha }}
-            ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.architecture }}
+            ${{ github.ref_name == 'main' && format('ghcr.io/{0}:{1}', env.IMAGE_NAME, matrix.architecture) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max 
