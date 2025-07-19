@@ -1,15 +1,46 @@
 services:
   quick-status:
     build:
-      context: https://github.com/dewstouh/quick-status.git#main
+      context: ../../..
       dockerfile: docker/images/quick-status/Dockerfile
-    image: quick-status
-    container_name: quick-status
+    container_name: quick-status-app
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - HOSTNAME=0.0.0.0
+      - DATABASE_URL=postgresql://quick-status:quick-status_password@postgres:5432/quick-status
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: quick-status-postgres
+    environment:
+      POSTGRES_DB: quick-status
+      POSTGRES_USER: quick-status
+      POSTGRES_PASSWORD: quick-status_password
     volumes:
-      - ./data:/app/packages/db/prisma
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quick-status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: quick-status-network

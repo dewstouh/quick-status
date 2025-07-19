@@ -15,6 +15,7 @@
         "@quick-status/db": "workspace:^"
     },
     "devDependencies": {
+        "@quick-status/eslint-config": "workspace:^",
         "@quick-status/typescript-config": "workspace:^",
         "tsx": "^4.20.3"
     }
