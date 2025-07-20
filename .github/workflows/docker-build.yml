@@ -11,6 +11,7 @@ on:
       - 'pnpm-lock.yaml'
       - 'turbo.json'
   pull_request:
+    branches: ["main", "dev"]
   workflow_dispatch: # Allow manual trigger
 
 env:
